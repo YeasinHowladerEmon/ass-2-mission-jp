@@ -15,19 +15,16 @@ const createProduct = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// const getAllProducts = catchAsync(async (req: Request, res: Response) => {
-//   const filters = pick(req.query, ProductFilterableFields);
+const getAllProducts = catchAsync(async (req: Request, res: Response) => {
+  const filters = req.query;
 
-//   const result = await ProductService.getAllProducts(
-//     filters,
-//     paginationOptions
-//   );
-//   res.status(httpStatus.OK).json({
-//     success: true,
-//     messages: "Products retrieved successfully",
-//     data: result
-//   });
-// });
+  const result = await ProductService.getAllProducts(filters);
+  res.status(httpStatus.OK).json({
+    success: true,
+    messages: "Products retrieved successfully",
+    data: result
+  });
+});
 
 const getSingleProduct = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
@@ -61,7 +58,7 @@ const deleteProduct = catchAsync(async (req: Request, res: Response) => {
 });
 export const ProductController = {
   createProduct,
-  //   getAllProducts,
+  getAllProducts,
   getSingleProduct,
   updateSingleProduct,
   deleteProduct

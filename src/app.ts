@@ -16,7 +16,7 @@ app.use("/api", routes);
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(httpStatus.NOT_FOUND).json({
     success: false,
-    message: "Not Found"
+    message: "Route not found"
   });
   next();
 });
