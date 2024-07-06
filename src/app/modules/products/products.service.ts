@@ -28,7 +28,7 @@ const getAllProducts = async (req: Request): Promise<IProducts[]> => {
   return result;
 };
 const getSingleProduct = async (id: string): Promise<IProducts | null> => {
-  const result = await Product.findById(id).populate("seller");
+  const result = await Product.findById(id);
   return result;
 };
 const updateSingleProduct = async (id: string, payload: Partial<IProducts>) => {

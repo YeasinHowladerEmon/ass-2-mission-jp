@@ -13,7 +13,7 @@ export type IProducts = {
     }
   ];
   inventory: {
-    quantity: string;
+    quantity: number;
     inStock: string;
   };
 };

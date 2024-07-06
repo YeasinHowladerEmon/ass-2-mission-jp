@@ -1,6 +1,7 @@
 import cors from "cors";
 import express, { Application, NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
+import routes from "./app/modules/routes";
 
 const app: Application = express();
 
