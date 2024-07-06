@@ -3,11 +3,12 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 import catchAsync from "../../../common/async";
 import { OrderService } from "./orders.service";
+import { OrderSchema } from "./orders.validation";
 
 const createOrder = catchAsync(async (req: Request, res: Response) => {
   const { ...data } = req.body;
-
-  const result = await OrderService.createOrder(res, data);
+  const zodParseData = OrderSchema.parse(data);
+  const result = await OrderService.createOrder(res, zodParseData);
   res.status(httpStatus.OK).json({
     success: true,
     messages: "Order is created Successfully",
