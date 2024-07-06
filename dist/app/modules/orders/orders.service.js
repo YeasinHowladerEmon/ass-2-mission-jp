@@ -55,9 +55,8 @@ const createOrder = (res, payload) => __awaiter(void 0, void 0, void 0, function
     return result;
 });
 const getAllOrders = (req) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c;
-    console.log(req.query.email);
-    const filter = ((_b = (_a = req === null || req === void 0 ? void 0 : req.query) === null || _a === void 0 ? void 0 : _a.email) === null || _b === void 0 ? void 0 : _b.length) !== 0 ? { email: (_c = req.query) === null || _c === void 0 ? void 0 : _c.email } : {};
+    const email = req.query.email;
+    const filter = email ? { email: email } : {};
     const result = yield orders_model_1.Order.find(filter);
     return result;
 });
