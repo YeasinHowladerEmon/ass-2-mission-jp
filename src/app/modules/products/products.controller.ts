@@ -3,11 +3,14 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 import catchAsync from "../../../common/async";
 import { ProductService } from "./products.service";
+import { ProductValidationSchema } from "./products.validation";
 
 const createProduct = catchAsync(async (req: Request, res: Response) => {
   const { ...data } = req.body;
 
-  const result = await ProductService.createProduct(data);
+  const zodParseData = ProductValidationSchema.parse(data);
+
+  const result = await ProductService.createProduct(zodParseData);
   res.status(httpStatus.OK).json({
     success: true,
     messages: "Product is created Successfully",

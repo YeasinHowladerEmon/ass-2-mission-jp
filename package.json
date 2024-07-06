@@ -7,6 +7,7 @@
     "start": "node src/server.js",
     "lint": "eslint --ignore-path .eslintignore --ext .js,.ts",
     "lint:fix": "npx eslint src --fix",
+    "lints": "npx eslint ",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,7 +28,9 @@
     "@eslint/js": "^9.6.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
-    "eslint": "^9.6.0",
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^7.15.0",
+    "eslint": "^8.56.0",
     "globals": "^15.8.0",
     "typescript-eslint": "^7.15.0"
   }

@@ -45,10 +45,8 @@ const createOrder = async (res: Response, payload: IOrders) => {
 };
 
 const getAllOrders = async (req: Request): Promise<IOrders[]> => {
-  console.log(req.query.email);
-
-  const filter =
-    req?.query?.email?.length !== 0 ? { email: req.query?.email } : {};
+  const email = req.query.email as string | undefined;
+  const filter = email ? { email: email } : {};
   const result = await Order.find(filter);
   return result;
 };
