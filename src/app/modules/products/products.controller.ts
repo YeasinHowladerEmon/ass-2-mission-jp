@@ -9,6 +9,7 @@ const createProduct = catchAsync(async (req: Request, res: Response) => {
   const { ...data } = req.body;
 
   const zodParseData = ProductValidationSchema.parse(data);
+  console.log(zodParseData)
 
   const result = await ProductService.createProduct(zodParseData);
   res.status(httpStatus.OK).json({
@@ -30,6 +31,13 @@ const getAllProducts = catchAsync(async (req: Request, res: Response) => {
 const getSingleProduct = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const result = await ProductService.getSingleProduct(id);
+  if(!result){
+    res.status(httpStatus.NOT_FOUND).json({
+      success: true,
+      messages: "Product not found",
+      data: result
+    });
+  }
   res.status(httpStatus.OK).json({
     success: true,
     messages: "Product retrieved successfully",

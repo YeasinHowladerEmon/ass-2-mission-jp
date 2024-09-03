@@ -43,7 +43,7 @@ const ProductSchema = new Schema<IProducts>(
         required: true
       },
       inStock: {
-        type: String,
+        type: Boolean,
         required: true
       }
     }

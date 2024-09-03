@@ -3,6 +3,8 @@ import { IProducts } from "./products.interfaces";
 import { Product } from "./products.model";
 const ProductFilterableFields = ["name", "description", "tags", "category"];
 const createProduct = async (payload: IProducts) => {
+  console.log(payload)
+
   const result = await Product.create(payload);
   return result;
 };
@@ -29,6 +31,7 @@ const getAllProducts = async (req: Request): Promise<IProducts[]> => {
 };
 const getSingleProduct = async (id: string): Promise<IProducts | null> => {
   const result = await Product.findById(id);
+  
   return result;
 };
 const updateSingleProduct = async (id: string, payload: Partial<IProducts>) => {

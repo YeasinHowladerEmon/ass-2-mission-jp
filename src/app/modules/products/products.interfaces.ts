@@ -12,7 +12,7 @@ export type IProducts = {
   }[];
   inventory: {
     quantity: number;
-    inStock: string;
+    inStock: boolean;
   };
 };
 

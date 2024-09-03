@@ -14,7 +14,7 @@ const ProductValidationSchema = z.object({
   ),
   inventory: z.object({
     quantity: z.number(),
-    inStock: z.string()
+    inStock: z.boolean()
   })
 });
 
@@ -22,3 +22,4 @@ const ProductValidationSchema = z.object({
 type IProducts = z.infer<typeof ProductValidationSchema>;
 
 export { IProducts, ProductValidationSchema };
+
