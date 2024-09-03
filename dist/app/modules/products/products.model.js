@@ -43,7 +43,7 @@ const ProductSchema = new mongoose_1.Schema({
             required: true
         },
         inStock: {
-            type: String,
+            type: Boolean,
             required: true
         }
     }

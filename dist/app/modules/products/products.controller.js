@@ -31,6 +31,7 @@ const products_validation_1 = require("./products.validation");
 const createProduct = (0, async_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = __rest(req.body, []);
     const zodParseData = products_validation_1.ProductValidationSchema.parse(data);
+    console.log(zodParseData);
     const result = yield products_service_1.ProductService.createProduct(zodParseData);
     res.status(http_status_1.default.OK).json({
         success: true,
@@ -49,6 +50,13 @@ const getAllProducts = (0, async_1.default)((req, res) => __awaiter(void 0, void
 const getSingleProduct = (0, async_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const result = yield products_service_1.ProductService.getSingleProduct(id);
+    if (!result) {
+        res.status(http_status_1.default.NOT_FOUND).json({
+            success: true,
+            messages: "Product not found",
+            data: result
+        });
+    }
     res.status(http_status_1.default.OK).json({
         success: true,
         messages: "Product retrieved successfully",

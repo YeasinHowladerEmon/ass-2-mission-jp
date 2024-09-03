@@ -13,6 +13,7 @@ exports.ProductService = void 0;
 const products_model_1 = require("./products.model");
 const ProductFilterableFields = ["name", "description", "tags", "category"];
 const createProduct = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(payload);
     const result = yield products_model_1.Product.create(payload);
     return result;
 });

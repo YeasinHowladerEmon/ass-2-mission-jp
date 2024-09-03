@@ -20,13 +20,41 @@ const createOrder = (res, payload) => __awaiter(void 0, void 0, void 0, function
     console.log(payload);
     // const product = await Product.findById(payload.productId);
     // console.log(product);
-    const product = yield products_model_1.Product.aggregate([
-        {
-            $match: {
-                _id: new mongoose_1.default.Types.ObjectId(payload.productId),
-                "inventory.quantity": { $gte: payload.quantity }
-            }
-        },
+    // const product = await Product.aggregate([
+    //   {
+    //     $match: {
+    //       _id: new mongoose.Types.ObjectId(payload.productId),
+    //       "inventory.quantity": { $gte: payload.quantity }
+    //     }
+    //   },
+    //   {
+    //     $set: {
+    //       "inventory.quantity": {
+    //         $subtract: ["$inventory.quantity", payload.quantity]
+    //       },
+    //       "inventory.inStock": {
+    //         $cond: {
+    //           if: {
+    //             $gt: [{ $subtract: ["$inventory.quantity", payload.quantity] }, 0]
+    //           },
+    //           then: true,
+    //           else: false
+    //         }
+    //       }
+    //     }
+    //   },
+    //   {
+    //     $merge: {
+    //       into: "products", // Replace with your actual collection name
+    //       whenMatched: "replace", // This replaces the document with the new version
+    //       whenNotMatched: "discard" // This prevents insertion of a new document
+    //     }
+    //   }
+    // ]);
+    const product = yield products_model_1.Product.findOneAndUpdate({
+        _id: new mongoose_1.default.Types.ObjectId(payload.productId),
+        "inventory.quantity": { $gte: payload.quantity }
+    }, [
         {
             $set: {
                 "inventory.quantity": {
@@ -35,7 +63,10 @@ const createOrder = (res, payload) => __awaiter(void 0, void 0, void 0, function
                 "inventory.inStock": {
                     $cond: {
                         if: {
-                            $gt: [{ $subtract: ["$inventory.quantity", payload.quantity] }, 0]
+                            $gt: [
+                                { $subtract: ["$inventory.quantity", payload.quantity] },
+                                0
+                            ]
                         },
                         then: true,
                         else: false
@@ -43,12 +74,14 @@ const createOrder = (res, payload) => __awaiter(void 0, void 0, void 0, function
                 }
             }
         }
-    ]);
+    ], {
+        new: true
+    });
     console.log(product);
-    if (product.length === 0) {
+    if (product === null) {
         return res.status(400).json({
             success: false,
-            message: "Product not available or insufficient stock"
+            message: "Insufficient quantity available in inventory"
         });
     }
     const result = yield orders_model_1.Order.create(payload);

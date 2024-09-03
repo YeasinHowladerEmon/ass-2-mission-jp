@@ -14,7 +14,7 @@ const ProductValidationSchema = zod_1.z.object({
     })),
     inventory: zod_1.z.object({
         quantity: zod_1.z.number(),
-        inStock: zod_1.z.string()
+        inStock: zod_1.z.boolean()
     })
 });
 exports.ProductValidationSchema = ProductValidationSchema;
